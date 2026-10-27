@@ -279,7 +279,7 @@ class Score:
     def __init__(self):
         self.font = pg.font.Font(None, 50)
         self.color = (0, 0, 255)
-        self.value = 0
+        self.value = 1000
         self.image = self.font.render(f"Score: {self.value}", 0, self.color)
         self.rect = self.image.get_rect()
         self.rect.center = 100, HEIGHT-50
@@ -335,6 +335,13 @@ def main():
             if event.type == pg.QUIT:
                 return 0
             if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
+                pressed = pg.key.get_pressed()
+                if pressed[pg.K_LSHIFT]:
+                    nb = NeoBeam(bird,5)
+                    for b in nb.gen_beams():
+                        beams.add(b)
+                else:
+                    beams.add(Beam(bird))
                 beams.add(Beam(bird))
 
             if event.type == pg.KEYDOWN and event.key == pg.K_RETURN:
